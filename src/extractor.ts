@@ -1,10 +1,12 @@
 import ffmpeg from "fluent-ffmpeg";
 import ffmpegStatic from "ffmpeg-static";
+import ffprobeStatic from "ffprobe-static";
 import * as path from "path";
 import * as fs from "fs";
 import { OutputFormat } from "./converter";
 
 if (ffmpegStatic) ffmpeg.setFfmpegPath(ffmpegStatic);
+ffmpeg.setFfprobePath(ffprobeStatic.path);
 
 export type VideoFrame = "first" | "middle" | "last" | string;
 

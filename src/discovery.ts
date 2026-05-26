@@ -11,6 +11,7 @@ export interface DiscoveredFile {
 const IMAGE_EXTS = new Set([
   ".jpg", ".jpeg", ".png", ".gif", ".bmp",
   ".tiff", ".tif", ".webp", ".ico",
+  ".heic", ".heif",
 ]);
 
 const VIDEO_EXTS = new Set([

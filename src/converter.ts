@@ -1,12 +1,24 @@
 import sharp from "sharp";
+import heicConvert from "heic-convert";
 import * as path from "path";
 import * as fs from "fs";
 
 export type OutputFormat = "png" | "jpg" | "webp" | "bmp" | "tiff" | "gif";
 
+const HEIC_EXTS = new Set([".heic", ".heif"]);
+
 export interface ConvertOptions {
   quality: number;
   overwrite: boolean;
+}
+
+async function toSharpInput(srcPath: string): Promise<string | Buffer> {
+  if (!HEIC_EXTS.has(path.extname(srcPath).toLowerCase())) return srcPath;
+  const raw = await heicConvert({
+    buffer: fs.readFileSync(srcPath),
+    format: "PNG",
+  });
+  return Buffer.from(raw);
 }
 
 export async function convertImage(
@@ -29,7 +41,7 @@ export async function convertImage(
 
   fs.mkdirSync(outputDir, { recursive: true });
 
-  let pipeline = sharp(srcPath);
+  let pipeline = sharp(await toSharpInput(srcPath));
 
   // JPEG and BMP don't support alpha — flatten against white
   if (format === "jpg" || format === "bmp") {

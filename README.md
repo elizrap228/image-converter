@@ -4,8 +4,16 @@ CLI tool to convert images to a target format. For video files, extracts a key f
 
 ## Install
 
+From the project directory, build and install globally:
+
 ```bash
-npm install -g imgconv
+npm run build && npm install -g .
+```
+
+To uninstall:
+
+```bash
+npm uninstall -g imgconv
 ```
 
 Or run without installing:
@@ -64,7 +72,7 @@ imgconv png --dry-run
 
 | Type | Extensions |
 |---|---|
-| Input images | `.jpg`, `.jpeg`, `.png`, `.gif`, `.bmp`, `.tiff`, `.tif`, `.webp`, `.ico` |
+| Input images | `.jpg`, `.jpeg`, `.png`, `.gif`, `.bmp`, `.tiff`, `.tif`, `.webp`, `.ico`, `.heic`, `.heif` |
 | Input videos | `.mp4`, `.mov`, `.avi`, `.mkv`, `.webm`, `.wmv` |
 | Output | `png`, `jpg`, `webp`, `bmp`, `tiff`, `gif` |
 
