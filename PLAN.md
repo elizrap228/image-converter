@@ -11,14 +11,14 @@ A cross-platform CLI tool that converts images in a directory to a specified for
 ## CLI Interface
 
 ```
-imgconv <directory> <format> [OPTIONS]
+imgconv <format> [OPTIONS]
 
 Arguments:
-  directory    Directory containing files to convert
   format       Target format: png, jpg, webp, tiff, bmp, gif
 
 Options:
-  -o, --output-dir PATH    Save outputs here (default: <directory>/output/)
+  -d, --dir PATH           Directory to scan (default: current directory)
+  -o, --output-dir PATH    Save outputs here (default: <dir>/output/)
   -r, --recursive          Process subdirectories (default: top-level only)
   --video-frame TEXT       Frame to extract: first | middle | last | HH:MM:SS  [default: middle]
   -q, --quality INT        Quality for lossy formats (JPEG/WEBP), 1–100  [default: 85]
