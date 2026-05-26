@@ -29,12 +29,10 @@ export async function convertImage(
   outputDir: string,
   format: OutputFormat,
   opts: ConvertOptions
-): Promise<"converted" | "skipped" | "same-format"> {
+): Promise<"converted" | "skipped"> {
   const srcExt = path.extname(srcPath).toLowerCase().replace(".", "");
   const normalizedSrc = srcExt === "jpeg" ? "jpg" : srcExt;
   const normalizedTarget = format === "jpg" ? "jpg" : format;
-
-  if (normalizedSrc === normalizedTarget) return "same-format";
 
   const stem = path.basename(srcPath, path.extname(srcPath));
   const outExt = format === "jpg" ? "jpg" : format;
@@ -43,6 +41,11 @@ export async function convertImage(
   if (!opts.overwrite && fs.existsSync(destPath)) return "skipped";
 
   fs.mkdirSync(outputDir, { recursive: true });
+
+  if (normalizedSrc === normalizedTarget) {
+    fs.copyFileSync(srcPath, destPath);
+    return "converted";
+  }
 
   let pipeline = sharp(await toSharpInput(srcPath));
 

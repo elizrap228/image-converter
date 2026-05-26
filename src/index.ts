@@ -59,7 +59,6 @@ program
 
     let converted = 0;
     let skipped = 0;
-    let sameFormat = 0;
     let errors = 0;
 
     for (const file of files) {
@@ -76,12 +75,9 @@ program
           if (result === "converted") {
             console.log(`  converted: ${rel}`);
             converted++;
-          } else if (result === "skipped") {
+          } else {
             console.log(`  skipped (exists): ${rel}`);
             skipped++;
-          } else {
-            console.log(`  skipped (same format): ${rel}`);
-            sameFormat++;
           }
         } else {
           const result = await extractFrame(file.absPath, outputDir, format, {
@@ -105,7 +101,7 @@ program
 
     if (!dryRun) {
       console.log(
-        `\nDone. ${converted} converted, ${skipped} skipped, ${sameFormat} same-format, ${errors} errors.`
+        `\nDone. ${converted} converted, ${skipped} skipped, ${errors} errors.`
       );
     }
   });
