@@ -14,11 +14,14 @@ export interface ConvertOptions {
 
 async function toSharpInput(srcPath: string): Promise<string | Buffer> {
   if (!HEIC_EXTS.has(path.extname(srcPath).toLowerCase())) return srcPath;
-  const raw = await heicConvert({
-    buffer: fs.readFileSync(srcPath),
-    format: "PNG",
-  });
-  return Buffer.from(raw);
+  const fileBuffer = fs.readFileSync(srcPath);
+  try {
+    const raw = await heicConvert({ buffer: fileBuffer, format: "PNG" });
+    return Buffer.from(raw);
+  } catch {
+    // File has a HEIC extension but isn't actually HEIC — let sharp try by content
+    return fileBuffer;
+  }
 }
 
 export async function convertImage(
