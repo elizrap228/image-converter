@@ -83,5 +83,3 @@ imgconv png --dry-run
 - Files are skipped if the source and target format are the same.
 - Images with transparency (e.g. PNG with alpha) are flattened against a white background when converting to JPEG or BMP, which do not support alpha.
 - For videos, the middle frame is extracted by default. Use `--video-frame` to choose `first`, `last`, or a specific timecode (`HH:MM:SS`).
-
-# Test
